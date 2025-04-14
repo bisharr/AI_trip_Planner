@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SelectBudgetOptions, SelectTravelesList } from "@/constants/options";
+import {
+  AI_PROMT,
+  SelectBudgetOptions,
+  SelectTravelesList,
+} from "@/constants/options";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
+
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { main } from "@/service/GeminiAI";
+// import { chatSession } from "@/service/AIModel";
 
 function CreateTrip() {
   const [place, setPlace] = useState();
@@ -14,10 +22,39 @@ function CreateTrip() {
       [name]: value,
     });
   }
+  const OnGenerateTrip = async () => {
+    if (
+      (formData?.noOfDays > 10 && !formData?.location) ||
+      !formData?.budget ||
+      !formData?.traveller
+    ) {
+      toast("Please fill all details.");
+      return;
+    }
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    const FINAL_PROMT = AI_PROMT.replace(
+      "{location}",
+      formData?.location?.label
+    )
+      .replace("{totalDays}", formData?.noOfDays)
+      .replace("{traveler}", formData?.traveller)
+      .replace("{budget}", formData?.budget)
+      .replace("{totalDays}", formData?.noOfDays);
+
+    console.log("Final prompt:", FINAL_PROMT);
+
+    const result = await main(FINAL_PROMT);
+
+    if (Array.isArray(result)) {
+      result.forEach((day, index) => {
+        console.log(`Day ${index + 1}:`, day);
+      });
+    } else {
+      console.log("Raw AI Output:", result);
+    }
+  };
+
+  useEffect(() => {}, [formData]);
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
       <h2 className="font-bold text-3xl">
@@ -81,12 +118,12 @@ function CreateTrip() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
             {SelectTravelesList.map((item, index) => {
-              const isSelected = formData.noOfPeople === item.title;
+              const isSelected = formData.traveller === item.title;
 
               return (
                 <div
                   key={index}
-                  onClick={() => handleInputChange("noOfPeople", item.title)}
+                  onClick={() => handleInputChange("traveller", item.title)}
                   className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg transition-all duration-200
         ${isSelected ? "border-[3px] border-blue-400" : "border-gray-300"}`}
                 >
@@ -100,7 +137,9 @@ function CreateTrip() {
         </div>
       </div>
       <div className="flex justify-end mr-10 my-10">
-        <Button className="!bg-black">Generate trip</Button>
+        <Button onClick={OnGenerateTrip} className="!bg-black">
+          Generate trip
+        </Button>
       </div>
     </div>
   );
