@@ -151,7 +151,7 @@ function CreateTrip() {
                 handleInputChange("location", v);
               },
             }}
-            apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
+            apiKey="AIzaSyB4OG0p4x7QZRHAPKKSSfW15A0Lidx8hA8"
           />
         </div>
         <div>

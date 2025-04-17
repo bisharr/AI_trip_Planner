@@ -5,11 +5,14 @@ import { useParams } from "react-router-dom";
 import { Toaster } from "sonner";
 import InfoSection from "../component/infoSection";
 import Hotels from "../component/Hotels";
+import PlacesToVisit from "../component/PlacesToVisit";
+import Footer from "../component/Footer";
 
 function ViewTrip() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
+  console.log(trip);
 
   //   use to get Trip Info from fireBase
   const GetTripData = async () => {
@@ -33,6 +36,10 @@ function ViewTrip() {
 
   return (
     <div className="p-10 md:px-44 xl:px-56">
+      <h2 className="my-2.5 font-bold space-x-2 bg-gray-600 text-amber-100 p-1.5 rounded text-2xl max-w-max">
+        UserName:
+        {trip.userName}
+      </h2>
       {/* Information section */}
       <InfoSection trip={trip} />
 
@@ -40,8 +47,10 @@ function ViewTrip() {
       <Hotels hotelData={hotelsData} />
 
       {/* Daily Plan */}
+      <PlacesToVisit place={trip} />
 
       {/* Footer */}
+      <Footer />
     </div>
   );
 }
