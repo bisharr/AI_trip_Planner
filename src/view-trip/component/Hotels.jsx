@@ -11,8 +11,8 @@ function Hotels({ hotelData }) {
     hotelData?.hotels ||
     hotelData.hotelOptions ||
     [];
-  const hotelNames = hotelList.map((item) => item.hotelName);
-  console.log(hotelNames);
+  // const hotelNames = hotelList.map((item) => item.hotelName);
+  // console.log(hotelNames);
 
   // console.log(trip);
 

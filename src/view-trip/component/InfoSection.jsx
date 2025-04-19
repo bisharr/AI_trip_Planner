@@ -17,8 +17,7 @@ function InfoSection({ trip }) {
       };
 
       const res = await GetPlaceDetails(data);
-      console.log("Result: ", res.data.places[0].photos[3].name);
-      console.log("Result: ", res.data);
+
       const PhotoUrl = PHOTO_REQUEST_URL_PRIVATE.replace(
         "{NAME}",
         res.data.places[0].photos[3].name

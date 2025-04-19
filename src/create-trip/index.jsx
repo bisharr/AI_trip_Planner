@@ -73,10 +73,8 @@ function CreateTrip() {
       .replace("{budget}", formData?.budget)
       .replace("{totalDays}", formData?.noOfDays);
 
-    console.log("Final prompt:", FINAL_PROMT);
-
     const result = await generateGeminiJSON(FINAL_PROMT);
-    console.log(result);
+
     setLoading(false);
     SaveAiTrip(result);
 

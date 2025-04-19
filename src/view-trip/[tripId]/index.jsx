@@ -12,7 +12,6 @@ function ViewTrip() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
-  console.log(trip);
 
   //   use to get Trip Info from fireBase
   const GetTripData = async () => {
@@ -20,12 +19,9 @@ function ViewTrip() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("document:", docSnap.data());
-      console.log("new:", docSnap.data().TripData);
       setHotelsData(docSnap.data().TripData);
       setTrip(docSnap.data());
     } else {
-      console.log("No Such Document");
       Toaster("No trip found");
     }
   };
