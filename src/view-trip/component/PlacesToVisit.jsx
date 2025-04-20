@@ -26,8 +26,6 @@ function PlacesToVisit({ place }) {
           // Get a name to query — first location or fallback
           const firstPlaceName =
             item.locations?.[0]?.name || item.locations?.[0] || "Unknown Place";
-          console.log(firstPlaceName);
-          console.log(firstPlaceName.placeName);
 
           const data = { textQuery: firstPlaceName.placeName };
           const res = await GetPlaceDetails(data);

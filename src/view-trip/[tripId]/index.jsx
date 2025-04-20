@@ -32,10 +32,6 @@ function ViewTrip() {
 
   return (
     <div className="p-10 md:px-44 xl:px-56">
-      <h2 className="my-2.5 font-bold space-x-2 bg-gray-600 text-amber-100 p-1.5 rounded text-2xl max-w-max">
-        UserName:
-        {trip.userName}
-      </h2>
       {/* Information section */}
       <InfoSection trip={trip} />
 
