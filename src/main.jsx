@@ -23,6 +23,9 @@ const router = createBrowserRouter([
     path: "/view-trip/:tripId",
     element: <ViewTrip />,
   },
+  {
+    basename: "/AI_trip_Planner",
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
