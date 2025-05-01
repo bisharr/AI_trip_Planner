@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Footer from "@/view-trip/component/Footer";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function Hero() {
       <Link to="/create-trip">
         <Button className="d !bg-black">Get started its free</Button>
       </Link>
+      <Footer />
     </div>
   );
 }
